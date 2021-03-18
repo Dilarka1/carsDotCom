@@ -1,5 +1,6 @@
 package com.cars.step_definitions;
 
+import com.cars.pages.BasePage;
 import com.cars.pages.Honda4filters;
 import com.cars.pages.HondaNew;
 import com.cars.pages.HondaUsed;
@@ -7,6 +8,8 @@ import com.cars.utilities.MyDriver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
+
+import java.util.List;
 
 
 public class HondaStepDefinitions {
@@ -31,25 +34,23 @@ public class HondaStepDefinitions {
     @Then("select Make {string}")
     public void select_Make(String honda) {
         hondaUsed.selectMake(honda);
-        System.out.println("Select Used Cars : " + honda);
     }
 
     @Then("select model {string}")
     public void select_model(String pilot) {
         hondaUsed.selectModel(pilot);
-        System.out.println("PILOT");
     }
 
     @Then("select price {string}")
     public void select_price(String price) {
         hondaUsed.selectPrice(price);
-        System.out.println("MAX Price 50K");
     }
 
     @Then("select distance {string}")
     public void select_distance(String miles100) {
         hondaUsed.selectDistance(miles100);
         System.out.println("100 miles!!!!!!!!" + miles100);
+        BasePage.clearCookies();
     }
 
     @Then("enter zipcode {string}")
@@ -60,6 +61,8 @@ public class HondaStepDefinitions {
         String expectedZip = "60008";
         Assert.assertEquals(expectedZip, zipcode);
 
+        BasePage.clearCookies();
+
     }
 
     @Then("click Search button")
@@ -68,16 +71,11 @@ public class HondaStepDefinitions {
 
     }
 
-    @Given("user got Search result page")
-    public void user_got_result_page() {
-        System.out.println("Search result page");
-        String actualTitle = MyDriver.get().getTitle();
-        String expectedTitle = "Used Honda Pilot - in 60008 - on Cars.com";
-        Assert.assertEquals(expectedTitle, actualTitle);
-        System.out.println(actualTitle);
+
+    @Then("verify that {int} filters next to {string}")
+    public void verify_that_filters_next_to(Integer filterSize, String clearAll) {
+        honda4filters.assert4filters(filterSize.toString());
     }
-
-
 
     @Then("assert selected Make is {string}")
     public void assert_selected_Make_is(String string) {
@@ -96,6 +94,13 @@ public class HondaStepDefinitions {
         // Write code here that turns the phrase above into concrete actions
         throw new cucumber.api.PendingException();
     }
+
+
+
+
+
+
+
 
 
 

@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class Honda4filters extends BasePage {
 
     @FindBy(xpath = "//header/div[1]/ul[1]/li[1]/label[1]")
@@ -21,6 +23,10 @@ public class Honda4filters extends BasePage {
     @FindBy(xpath = "//header/div[1]/ul[1]/li[5]/label[1]")
     public WebElement filterCondition;
 
+    @FindBy(xpath = "//ul[@class='breadcrumbs']//label[@role='presentation']")
+    public List<WebElement> listOfFilters;
+
+
 
     public void assert4filters(String expected) {
 
@@ -32,11 +38,11 @@ public class Honda4filters extends BasePage {
             String actual = filterMakeHonda.getText();
             Assert.assertEquals(expected, actual);
 
-        }else if (expected.equals(filterModelPilot.getText())) {
+        } else if (expected.equals(filterModelPilot.getText())) {
             String actual = filterModelPilot.getText();
             Assert.assertEquals(expected, actual);
 
-        }else if (expected.equals(filterCondition.getText())){
+        } else if (expected.equals(filterCondition.getText())) {
             String actual = filterCondition.getText();
             Assert.assertEquals(expected, actual);
         }
@@ -48,6 +54,9 @@ public class Honda4filters extends BasePage {
         Assert.assertTrue(filterModelPilot.isDisplayed());
         Assert.assertTrue(filterCondition.isDisplayed());
     }
+
+
+
 
     /*
     нужен лист элементов, что они присутвуют

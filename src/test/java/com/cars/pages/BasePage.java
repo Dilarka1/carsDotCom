@@ -13,6 +13,7 @@ public class BasePage {
 
     //When we use @FindBy annotation in this page.
     public BasePage() {
+
         PageFactory.initElements(MyDriver.get(), this);
     }
 
@@ -21,23 +22,35 @@ public class BasePage {
         Thread.sleep(3000);
     }
 
-    public static void clearCookiees() {
-        Set<Cookie> a = MyDriver.get().manage().getCookies();
+    /**
+     * Web site does not allow the automation browser
+     * Browser is doing it with cookies
+     * Cleaning the cookies helped. Needs to be done to every page navigation to make sure
+     * automation will work.
+     */
+    public static void clearCookies() {
+
+        Set<Cookie>a = MyDriver.get().manage().getCookies();
         System.out.println(a);
         //Delete all the cookies
         MyDriver.get().manage().deleteAllCookies();
 
     }
 
-    public void scrollDown(WebElement link) {
+    public void scrollDown() {
+        scrollDown();
+    }
+
+    public void scrollDown(WebElement link){
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         JavascriptExecutor js = (JavascriptExecutor) MyDriver.get();
-        /**
-         *  this script must scroll, until link element is visible
+
+        /*  this script must scroll, until link element is visible
          *  once link element visible, it will stop scrolling
          *  arguments[0] = means first webelement after comma (link)
          *  arguments it's an array of webelements after comma
