@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue = "com/cars/stepDefinitions",
-        dryRun = false,
+        dryRun = true,
         tags = " @hondaUsed",
         plugin = {"html:target/default-cucumber-reports",
                 "json:target/cucumber.json",

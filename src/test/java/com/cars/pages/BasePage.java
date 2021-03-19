@@ -41,7 +41,7 @@ public class BasePage {
         scrollDown();
     }
 
-    public void scrollDown(WebElement link){
+    public static void scrollDown(WebElement link){
 
         try {
             Thread.sleep(2000);

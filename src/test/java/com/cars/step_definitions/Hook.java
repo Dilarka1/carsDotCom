@@ -9,6 +9,8 @@ import io.cucumber.java.Before;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
+import java.util.concurrent.TimeUnit;
+
 public class Hook {
 
     @Before
@@ -16,6 +18,7 @@ public class Hook {
         System.out.println("#### setup! start ######");
         MyDriver.get().manage().window().maximize();
         MyDriver.get().get(ConfigurationReader.getProperty("url"));
+        MyDriver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     @After
