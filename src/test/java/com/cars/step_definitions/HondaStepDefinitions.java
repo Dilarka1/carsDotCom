@@ -7,6 +7,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
 
 public class HondaStepDefinitions {
 
@@ -95,36 +98,30 @@ public class HondaStepDefinitions {
         System.out.println(used);
     }
 
-
-    //radio button не работает
     @Then("select {string} radio button from New Used")
     public void select_radio_button_from(String button) {
+        BasePage.clearCookies();
         hondaNew.radioButton();
+
+        System.out.println("Radio button");
     }
 
-
-
-
-    //не сработал, исправить
     @Then("assert {string} filter is displayed")
     public void assert_filter_is_displayed(String string) {
         honda4filters.sizeOfFilter();
         String expected = "New";
-        String actual = honda4filters.filterCondition.getText();
+        String actual = honda4filters.filterNew.getText();
         Assert.assertEquals(expected, actual);
-
     }
 
     @And("assert {string} filter is not displayed")
     public void assert_filter_is_not_displayed(String expected) {
-        String actual = honda4filters.filterCondition.getText();
-        Assert.assertEquals(expected, actual);
-        honda4filters.verifyFilterDisplayed();
-
+        Assert.assertFalse(honda4filters.isUsedFilterDisplayed());
     }
 
     @Then("select {string} from Trim")
     public void select_from_Trim(String actual) {
+        BasePage.clearCookies();
         hondaNew.trimSelection();
         String expected = "Touring 8-Passenger";
         Assert.assertEquals(expected, actual);
@@ -134,10 +131,9 @@ public class HondaStepDefinitions {
     public void assert_filter_displayed(String string) {
         hondaNew.filterWithTrim();
         String expected = "Touring 8-Passenger";
-        String actual = honda4filters.filterCondition.getText();
+        String actual = honda4filters.filterTrim.getText();
         Assert.assertEquals(expected, actual);
     }
-    //обязательно ли использовать параметр стринг?
 
     @Then("select second available car")
     public void select_second_available_car() {
@@ -146,43 +142,40 @@ public class HondaStepDefinitions {
     }
 
     @Then("verify title contains {string}")
-    public void verify_title_contains(String string) {
+    public void verify_title_contains(String expectedTitle) {
         String actualTitle = MyDriver.get().getTitle();
-        String expectedTitle = "Honda Pilot 8-Passenger For Sale";
-        Assert.assertEquals(expectedTitle, actualTitle);
 
-
+        System.out.println("Actual Title:" + actualTitle);
+        Assert.assertTrue(actualTitle.contains(expectedTitle));
     }
 
     @Then("verify {string} button is displayed")
     public void verify_button_is_displayed(String string) {
         BasePage.scrollDown(hondaContactSeller.checkAvailability);
         hondaContactSeller.availabilityButton();
-
     }
 
     @Then("in {string} enter  {string}")
     public void in_enter(String string, String string2) {
         hondaContactSeller.enterText(string, string2);
-        //нужен ли здесь асершн?
+        System.out.println(string + " " + string2);
     }
 
     @And("{string} enter {string}")
     public void enter(String string, String string2) {
         hondaContactSeller.enterText(string, string2);
-
+        System.out.println(string + " " + string2);
     }
 
     @And("email {string} enter {string}")
     public void email_enter(String string, String string2) {
         hondaContactSeller.enterText(string, string2);
-
+        System.out.println(string + " " + string2);
+        MyDriver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-
     @Then("scroll down and take screenshot of {string}")
-    public void scroll_down_and_take_screenshot_of(String string) {
-
-
+    public void scroll_down_and_take_screenshot_of(String string) throws IOException {
+        hondaContactSeller.screenShot();
     }
 }

@@ -6,10 +6,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Driver;
 import java.util.Set;
 
 public class BasePage {
+
+    protected WebDriverWait wait = new WebDriverWait(MyDriver.get(), 25);
 
     //When we use @FindBy annotation in this page.
     public BasePage() {
@@ -30,7 +34,7 @@ public class BasePage {
      */
     public static void clearCookies() {
 
-        Set<Cookie>a = MyDriver.get().manage().getCookies();
+        Set<Cookie> a = MyDriver.get().manage().getCookies();
         System.out.println(a);
         //Delete all the cookies
         MyDriver.get().manage().deleteAllCookies();
@@ -41,7 +45,7 @@ public class BasePage {
         scrollDown();
     }
 
-    public static void scrollDown(WebElement link){
+    public static void scrollDown(WebElement link) {
 
         try {
             Thread.sleep(2000);

@@ -1,13 +1,12 @@
 package com.cars.pages;
 
-import com.cars.utilities.MyDriver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.io.File;
+import java.io.IOException;
 
 public class HondaContactSeller extends BasePage {
 
@@ -26,17 +25,14 @@ public class HondaContactSeller extends BasePage {
     @FindBy(xpath = "//div[@class=\"calculator\"]")
     public WebElement calculator;
 
-
-
-
     public void availabilityButton() {
-    checkAvailability.isDisplayed();
-    checkAvailability.isEnabled();
+        checkAvailability.isDisplayed();
+        checkAvailability.isEnabled();
     }
 
     public void enterText(String text, String text2){
         if(text.equals("Fist Name")) {
-            enterName.sendKeys(text2);
+            enterName.sendKeys(text2); //"Car"
         }
         if(text.equals("Last Name")) {
             enterLastname.sendKeys(text2);   //"Owner");
@@ -46,14 +42,14 @@ public class HondaContactSeller extends BasePage {
         }
     }
 
-    public void screenShot(){
+    public void screenShot() throws IOException {
+        File f = calculator.getScreenshotAs(OutputType.FILE);
 
-        TakesScreenshot scrShot =((TakesScreenshot)MyDriver.get());
-        File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
-       // File DestFile=new File(fileName);
-      //  FileUtils.copyFile(SrcFile, DestFile);
-
-
-//        (TakesScreenshot) MyDriver.get()).getScreenshotAs(OutputType.BYTES)
-}
+        FileUtils.copyFile(f, new File(System.getProperty("user.dir")+
+                File.separator+"src"+
+                File.separator+"test"+
+                File.separator+"resources"+
+                File.separator+"screenshots"+
+                File.separator+"calculator_screenshot.png"));
+    }
 }

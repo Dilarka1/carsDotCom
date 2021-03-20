@@ -7,27 +7,19 @@ import java.util.List;
 
 public class HondaNew extends BasePage {
 
-    //проверить
-    @FindBy(xpath = "//label[contains(text(),\"New\") and @class='radio__label']")
-    // id = "[id='stkTypId-28880']"
+    @FindBy(xpath = "//label[@for='stkTypId-28880']")
     public WebElement radioNew;
 
-    @FindBy(id = "ae_filter_id164")
+    @FindBy(xpath = "//*[contains(@data-dtm,'Touring 8-Passenger')]")
+    ////ul[@class="refinements"]//label[contains(text(),'Touring 8-Passenger')]/preceding-sibling::input
+    //*[contains(@data-dtm,'Touring 8-Passenger')]
     public WebElement trim;
 
     @FindBy(xpath = "//label[contains(text(),'Touring 8-Passenger')]")
     public WebElement trim8passenger;
 
-
-
-
-    //проверить нельзяли использовать лист
-    @FindBy(xpath = "//header/div[1]/ul[1]/li[5]/label[1]")
-    public WebElement filterTrim8;
-
     @FindBy(xpath = "//header//ul[@class='breadcrumbs']//label")
     public List<WebElement> filterList;
-
 
     @FindBy(xpath = "//a[@data-position='2']")
     public WebElement secondCar;
@@ -48,7 +40,6 @@ public class HondaNew extends BasePage {
     public void radioButton() {
         scrollDown(radioNew);
         radioNew.click();
-        //  Assert.assertTrue(radioNew.isSelected());
     }
 
     public void checkFilters(List<WebElement> filterList) {
@@ -58,7 +49,7 @@ public class HondaNew extends BasePage {
     }
 
     public void trimSelection() {
-        scrollDown(trim);
+        trim8passenger.click();
         trim8passenger.isSelected();
     }
 
